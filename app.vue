@@ -1,6 +1,6 @@
 <template>
-  <div>
-    dsadsadas
-    
-  </div>
+    apppp
+<NuxtLayout>
+    <NuxtPage />
+</NuxtLayout>
 </template>
