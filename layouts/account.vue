@@ -1,6 +1,5 @@
 <template>
 <div class="app"> 
-    account
     <slot/>
 </div>
 </template>
@@ -16,7 +15,6 @@ const route = useRoute()
     
 <style lang="scss" scoped>
 .app {
-    margin: 48px 0 60px 0;
-    box-sizing: border-box;
+
 }
 </style>

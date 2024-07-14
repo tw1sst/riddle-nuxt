@@ -12,7 +12,7 @@
     
 <script setup>
 definePageMeta({
-  layout: "account",
+  layout: "default",
 });
 
 </script>
