@@ -7,26 +7,28 @@
   <div class="main__schools">
     <SchoolCell v-for="school of schoolsStore.schools" :school="school"/>
   </div>
-  
 
 </div>
 </template>
-  
+
 <script setup>
 import { ref } from 'vue';
 import { useUserStore } from '~/store/user'
 import { useSchoolsStore } from '~/store/schools'
 import SchoolCell from '~/components/skill/school-cell'
+const { $axios } = useNuxtApp()
 
 const userStore = useUserStore()
 const schoolsStore = useSchoolsStore()
 
+
 definePageMeta({
   layout: "default",
+  middleware: 'auth'
 });
 
 </script>
- 
+
 <style scoped lang="scss">
 .main {
   height: 100vh;
@@ -71,7 +73,7 @@ definePageMeta({
       justify-content: space-between;
     }
     &-progress {
-      
+
     }
     &-progressTitle {
       font-size: 12px;

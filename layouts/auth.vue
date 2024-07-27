@@ -1,20 +1,22 @@
 <template>
-<div class="app"> 
+  <div class="app">
     <slot/>
-</div>
+  </div>
 </template>
-    
-    
+
+
 <script setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router'
+import { useUserStore } from '@/store/user'
+import { useSchoolsStore } from '@/store/schools'
 
-const route = useRoute()
+
 </script>
-    
-    
+
+
 <style lang="scss" scoped>
 .app {
-
+  background-color: #F4F5F7;
 }
 </style>

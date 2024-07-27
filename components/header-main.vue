@@ -28,7 +28,7 @@ import { useUserStore } from '@/store/user'
 import { MagnifyingGlassIcon, BellIcon } from '@heroicons/vue/24/outline'
 
 const userStore = useUserStore()
-const userAvatar = "https://ui-avatars.com/api/?name=" + userStore.user.username + "&size=32&color=7F9CF5&background=EBF4FF"
+const userAvatar = "https://ui-avatars.com/api/?name=" + userStore.user.name + "&size=32&color=7F9CF5&background=EBF4FF"
 const logoImg = "https://i.ibb.co/BTTzpLt/F874-E38-B-2620-4-E93-9750-FB0-A25-A36-BA0.jpg"
 </script>
 
