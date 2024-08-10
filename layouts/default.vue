@@ -6,11 +6,10 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { useSchoolsStore } from '@/store/schools'
+import { useUserStore } from '@/store/user'
 import { useRoute } from 'vue-router'
 import TabBar from '~/components/tab-bar.vue'
-import { useUserStore } from '@/store/user'
-import { useSchoolsStore } from '@/store/schools'
 const { user, loggedIn } = useJwtAuth()
 
 const userStore = useUserStore()
@@ -70,6 +69,7 @@ console.log(userStore.user)
 
 <style lang="scss" scoped>
 .app {
-	background-color: white;
+	// background-color: white;
+	background-color: #f4f5f7;
 }
 </style>

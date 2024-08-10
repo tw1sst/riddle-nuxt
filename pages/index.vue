@@ -14,8 +14,13 @@
 			</div>
 		</div>
 
-		<div class="main__headerTitle pt-5 px-5">
+		<div class="main__headerTitle pt-5 px-5 flex justify-between items-center">
 			<h1 class="text-lg font-bold">Ваши школы</h1>
+			<span
+				@click="navigateTo({ name: 'schools-create' })"
+				class="text-xs text-blue-600"
+				>Создать школу</span
+			>
 		</div>
 
 		<div v-if="loadingSchools" class="main__schools-skeleton">
@@ -114,18 +119,18 @@ $axios.get('/school').then(res => {
 
 <style scoped lang="scss">
 .main {
-	height: 100vh;
+	height: 200vh;
 	width: 100vw;
 	&__headerTitle {
 		margin-bottom: 10px;
 	}
 	&__schools {
-		border-top: 1px solid #f4f5f7;
+		background-color: white;
 		display: flex;
 		flex-direction: column;
 		&-skeleton {
-			margin-top: 20px;
 			padding: 10px 0;
+			background-color: white;
 		}
 	}
 	&__categories {
@@ -134,7 +139,7 @@ $axios.get('/school').then(res => {
 		gap: 10px;
 		grid-template-columns: 1fr 1fr 1fr;
 		&-item {
-			background-color: #f4f5f7;
+			background-color: white;
 			height: 100px;
 			border-radius: 10px;
 			overflow: hidden;

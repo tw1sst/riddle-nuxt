@@ -1,8 +1,12 @@
 <template>
 	<Loading v-if="loadingSchool" />
 
-	<template v-else>
-		<van-nav-bar :title="school.name" left-text="Назад" left-arrow>
+	<div v-else>
+		<van-nav-bar
+			left-text="Назад"
+			left-arrow
+			@click-left="navigateTo({ path: '/' })"
+		>
 			<template #title>
 				<p>{{ school.name }}</p>
 			</template>
@@ -34,26 +38,67 @@
 									:src="school.logo_path"
 								/>
 							</div>
-							<div class="flex flex-col">
+							<div class="flex flex-col w-full">
 								<h1 class="text-lg font-medium">
 									{{ school.name }}
 								</h1>
-								<span class="text-sm text-slate-300"
-									>@{{ school.nick_name }}</span
-								>
+								<div class="flex justify-between">
+									<span class="text-sm text-slate-300">
+										@{{ school.nick_name }}
+									</span>
+									<span class="text-sm text-slate-300">
+										<van-rolling-text
+											class="school__rolling"
+											:start-num="0"
+											:duration="1"
+											:height="20"
+											:target-num="2438"
+											direction="up"
+										/>
+										подписчика
+									</span>
+								</div>
 							</div>
 						</div>
 
-						<span>{{ school.description }}</span>
+						<div class="flex gap-3 mt-3 mb-3">
+							<van-button type="primary" block>Подписаться</van-button>
+							<van-button>
+								<BellIcon class="h-5" />
+							</van-button>
+							<van-button @click="isShowSchoolOption = !isShowSchoolOption">
+								<EllipsisHorizontalIcon class="h-5" />
+							</van-button>
+						</div>
+
+						<van-text-ellipsis
+							rows="3"
+							class="text-sm"
+							:content="school.description"
+							expand-text=" Расскрыть"
+							collapse-text=" Скрыть"
+						/>
 					</div>
 				</div>
 			</van-tab>
 		</van-tabs>
-	</template>
+
+		<van-action-sheet
+			v-model:show="isShowSchoolOption"
+			:actions="shoolOptionsActions"
+			@select="onSelectAction"
+			cancel-text="Отмена"
+			close-on-click-action
+		/>
+	</div>
 </template>
 
 <script setup lang="ts">
-import { StarIcon } from '@heroicons/vue/24/outline'
+import {
+	BellIcon,
+	EllipsisHorizontalIcon,
+	StarIcon,
+} from '@heroicons/vue/24/outline'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import Loading from '~/components/loadingFull.vue'
@@ -66,7 +111,8 @@ const { $axios } = useNuxtApp()
 const userStore = useUserStore()
 const schoolsStore = useSchoolsStore()
 const loadingSchool = ref<boolean>(true)
-const school = ref<School>(null)
+const isShowSchoolOption = ref<boolean>(false)
+const school = ref<School | null>(null)
 const activeTab = ref<number>(0)
 
 definePageMeta({
@@ -80,6 +126,30 @@ $axios.get('/school/' + route.params.id).then(res => {
 	}
 	loadingSchool.value = false
 })
+
+const shoolOptionsActions = [
+	{
+		key: 'settings',
+		name: 'Открыть настройки школы',
+	},
+	{
+		key: 'delete',
+		name: 'Удалить школу',
+		color: '#ee0a24',
+		loading: false,
+	},
+	// { name: 'Loading Option', loading: true },
+]
+
+const onSelectAction = item => {
+	if (item.key == 'delete') {
+		$axios.delete('/school/' + school.value.id).then(res => {
+			if (res.data.status) {
+				navigateTo({ path: '/' })
+			}
+		})
+	}
+}
 
 const schoolTabs = [
 	{
@@ -123,6 +193,10 @@ const schoolTabs = [
 			margin-top: -20px;
 			position: relative;
 		}
+	}
+	&__rolling {
+		--van-rolling-text-color: #c5c5c5;
+		--van-rolling-text-gap: -7px;
 	}
 }
 </style>

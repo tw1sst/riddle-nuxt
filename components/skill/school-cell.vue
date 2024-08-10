@@ -23,9 +23,11 @@
 					{{ school.name }}
 					<div class="cell__badge">17 уроков</div>
 				</div>
-				<div class="cell__progressTitle">{{ school.id * 30 }}% пройдено</div>
+				<div class="cell__progressTitle">
+					{{ (100 / school.id).toFixed(2) }}% пройдено
+				</div>
 				<div class="cell__progress">
-					<van-progress :show-pivot="false" :percentage="school.id * 30" />
+					<van-progress :show-pivot="false" :percentage="100 / school.id" />
 				</div>
 			</div>
 		</div>
