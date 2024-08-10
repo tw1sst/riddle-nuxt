@@ -2,6 +2,13 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: false },
+  css: ['~/assets/css/main.css'],
+  app: {
+    head: {
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0',
+    }
+  },
   modules: [
     'nuxt-jwt-auth',
     '@vant/nuxt',
@@ -15,6 +22,12 @@ export default defineNuxtConfig({
       }
     ]
   ],
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
   nuxtJwtAuth: {
     baseUrl: 'http://127.0.0.1:8000/api', // URL of your backend
     endpoints: {
@@ -26,7 +39,6 @@ export default defineNuxtConfig({
     redirects: {
       home: '/', // Where to redirect after successfull login and logout
       login: '/auth/login', // Where to redirect if user is not logged in and accesses a logged-only route
-      logout: '/auth/logout' // Where to redirect if user is logged in and accesses a guest-only route
     }
   },
   vant: {

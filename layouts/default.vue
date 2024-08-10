@@ -1,16 +1,13 @@
 <template>
-<div class="app">
-    <Header />
-    <slot/>
-    <TabBar />
-</div>
+	<div class="app">
+		<slot />
+		<TabBar />
+	</div>
 </template>
 
-
 <script setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import Header from '~/components/header-main.vue'
 import TabBar from '~/components/tab-bar.vue'
 import { useUserStore } from '@/store/user'
 import { useSchoolsStore } from '@/store/schools'
@@ -21,7 +18,7 @@ const schoolsStore = useSchoolsStore()
 const route = useRoute()
 
 if (loggedIn) {
-  userStore.user = user.value
+	userStore.user = user.value
 }
 
 console.log(userStore.user)
@@ -71,9 +68,8 @@ console.log(userStore.user)
 // ]
 </script>
 
-
 <style lang="scss" scoped>
 .app {
-   background-color: #F4F5F7;
+	background-color: white;
 }
 </style>

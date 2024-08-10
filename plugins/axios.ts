@@ -1,23 +1,21 @@
 import axios from "axios";
 
 export default defineNuxtPlugin((nuxtApp) => {
-    // const { data } = useAuth()
+    const token = useCookie('nuxt-jwt-auth-token')
 
-    const runtimeConfig = useRuntimeConfig()
-    let jwt = ""
-
-    // if (data?._object["$sauth:data"]?.user?.accessToken) {
-    //     jwt = data._object["$sauth:data"].user.accessToken
-    // }
+    let jwt: string = ""
+    if (token?._value?.token) {
+        jwt = token?._value.token
+    }
 
     axios.defaults.withCredentials = true
     axios.defaults.credentials = true
-    axios.defaults.baseURL = "http://localhost:8000";
+    axios.defaults.baseURL = "http://localhost:8000/api";
 
     let axiosApi = axios.create({
         baseUrl: axios.defaults.baseURL,
         headers: {
-            //Authorization: `Bearer ${jwt}`,
+            // Authorization: `Bearer ` + jwt,
             common: {},
         },
     });
